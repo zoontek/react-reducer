@@ -27,8 +27,7 @@
     "precommit": "lint-staged",
     "linc": "lint-staged",
     "lint": "eslint '**/*.js'",
-    "typecheck": "flow",
-    "publish": "yarn build && npm publish"
+    "typecheck": "flow"
   },
   "lint-staged": {
     "**/*.js": "eslint --max-warnings 0",
