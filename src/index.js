@@ -17,10 +17,10 @@ type Props<State, Action> = {|
   render: (RenderParam<State, Action>) => React$Node,
 |};
 
-export class Component<State: {}, Action> extends React.Component<
-  Props<State, Action>,
-  State,
-> {
+export class Component<
+  State: {},
+  Action: { type: $Subtype<string> },
+> extends React.Component<Props<State, Action>, State> {
   state: State;
 
   constructor(props: Props<State, Action>) {
