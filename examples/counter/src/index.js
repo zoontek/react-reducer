@@ -2,16 +2,16 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Reducer, checkExhaustiveness } from 'react-reducer';
+import * as Reducer from 'react-reducer';
 
 type State = {|
   count: number,
 |};
 
 type Action =
-  | {| type: 'increment', step: number |}
-  | {| type: 'decrement', step: number |}
-  | {| type: 'reset' |};
+  | {| type: 'INCREMENT', step: number |}
+  | {| type: 'DECREMENT', step: number |}
+  | {| type: 'RESET' |};
 
 class Counter extends React.Component<{}> {
   initialState = {
@@ -20,40 +20,40 @@ class Counter extends React.Component<{}> {
 
   reducer = (state: State, action: Action) => {
     switch (action.type) {
-      case 'increment':
+      case 'INCREMENT':
         return { ...state, count: state.count + action.step };
-      case 'decrement':
+      case 'DECREMENT':
         return { ...state, count: state.count - action.step };
-      case 'reset':
+      case 'RESET':
         return { ...state, count: this.initialState.count };
 
       default:
-        checkExhaustiveness(action);
+        Reducer.checkExhaustiveness(action);
         return state;
     }
   };
 
   render() {
     return (
-      <Reducer
+      <Reducer.Component
         initialState={this.initialState}
         reducer={this.reducer}
-        render={({ state, send }) => (
-          <React.Fragment>
+        render={({ state, send }: Reducer.RenderArgs<State, Action>) => (
+          <div>
             <h2>Count: {state.count}</h2>
 
             <div>
-              <button onClick={() => send({ type: 'decrement', step: 1 })}>
+              <button onClick={() => send({ type: 'DECREMENT', step: 1 })}>
                 -
               </button>
 
-              <button onClick={() => send({ type: 'increment', step: 1 })}>
+              <button onClick={() => send({ type: 'INCREMENT', step: 1 })}>
                 +
               </button>
 
-              <button onClick={() => send({ type: 'reset' })}>Reset</button>
+              <button onClick={() => send({ type: 'RESET' })}>reset</button>
             </div>
-          </React.Fragment>
+          </div>
         )}
       />
     );

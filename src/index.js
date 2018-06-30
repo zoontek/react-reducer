@@ -2,23 +2,28 @@
 
 import React from 'react';
 
-export const checkExhaustiveness = (action: { type: empty }) => {
+type ActionShape = { type: $Subtype<string> };
+type ImpossibleAction = { type: empty };
+
+export type RenderArgs<State, Action> = {|
+  state: State,
+  send: Action => void,
+|};
+
+export const checkExhaustiveness = (action: ImpossibleAction) => {
   throw new Error(`Unhandled action of type ${action.type}`);
 };
 
 type Props<State, Action> = {|
   initialState: State,
   reducer: (State, Action) => State,
-  render: ({|
-    state: State,
-    send: Action => void,
-  |}) => React$Node,
+  render: (RenderArgs<State, Action>) => React$Node,
 |};
 
-export class Reducer<
+export class Component<State, Action: ActionShape> extends React.Component<
+  Props<State, Action>,
   State,
-  Action: { type: $Subtype<string> },
-> extends React.Component<Props<State, Action>, State> {
+> {
   state: State;
 
   constructor(props: Props<State, Action>) {
