@@ -7,11 +7,11 @@ export const checkExhaustiveness = (action: { type: empty }) => {
 };
 
 type Props<State, Action> = {|
-  initialState: State,
+  +initialState: State,
   reducer: (State, Action) => State,
   render: ({|
-    state: State,
-    send: Action => void,
+    +state: State,
+    +send: Action => void,
   |}) => React$Node,
 |};
 

@@ -1,12 +1,9 @@
 // @flow
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import * as Reducer from 'react-reducer';
 
-type State = {|
-  count: number,
-|};
+type State = number;
 
 type Action =
   | {| type: 'INCREMENT', step: number |}
@@ -14,16 +11,14 @@ type Action =
   | {| type: 'RESET' |};
 
 class Counter extends React.Component<{}> {
-  initialState: State = {
-    count: 0,
-  };
+  initialState: State = 0;
 
   reducer = (state: State, action: Action) => {
     switch (action.type) {
       case 'INCREMENT':
-        return { ...state, count: state.count + action.step };
+        return state + action.step;
       case 'DECREMENT':
-        return { ...state, count: state.count - action.step };
+        return state - action.step;
       case 'RESET':
         return this.initialState;
 
@@ -38,9 +33,9 @@ class Counter extends React.Component<{}> {
       <Reducer.Component
         initialState={this.initialState}
         reducer={this.reducer}
-        render={({ state, send }: Reducer.RenderParam<State, Action>) => (
+        render={({ state, send }) => (
           <div>
-            <h2>Count: {state.count}</h2>
+            <h2>Count: {state}</h2>
 
             <div>
               <button onClick={() => send({ type: 'DECREMENT', step: 1 })}>
@@ -60,5 +55,4 @@ class Counter extends React.Component<{}> {
   }
 }
 
-const root = document.getElementById('root');
-root && ReactDOM.render(<Counter />, root);
+export default Counter;
