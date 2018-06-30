@@ -5,7 +5,7 @@ import React from 'react';
 type ActionShape = { type: $Subtype<string> };
 type ImpossibleAction = { type: empty };
 
-export type RenderArgs<State, Action> = {|
+export type RenderParam<State, Action> = {|
   state: State,
   send: Action => void,
 |};
@@ -17,7 +17,7 @@ export const checkExhaustiveness = (action: ImpossibleAction) => {
 type Props<State, Action> = {|
   initialState: State,
   reducer: (State, Action) => State,
-  render: (RenderArgs<State, Action>) => React$Node,
+  render: (RenderParam<State, Action>) => React$Node,
 |};
 
 export class Component<State, Action: ActionShape> extends React.Component<

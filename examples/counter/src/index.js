@@ -38,7 +38,7 @@ class Counter extends React.Component<{}> {
       <Reducer.Component
         initialState={this.initialState}
         reducer={this.reducer}
-        render={({ state, send }: Reducer.RenderArgs<State, Action>) => (
+        render={({ state, send }: Reducer.RenderParam<State, Action>) => (
           <div>
             <h2>Count: {state.count}</h2>
 
