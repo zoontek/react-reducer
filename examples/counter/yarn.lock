@@ -5552,9 +5552,9 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
-react-reducer@^1.0.0-alpha.4:
-  version "1.0.0-alpha.4"
-  resolved "https://registry.yarnpkg.com/react-reducer/-/react-reducer-1.0.0-alpha.4.tgz#9caf11423b0f94a238bf3a3005cbb41055fa1df4"
+react-reducer@^1.0.0-alpha.5:
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/react-reducer/-/react-reducer-1.0.0-alpha.5.tgz#1c0baae1db2ba7921a4a0a8806cf2ebbf80d5dde"
 
 react-scripts@1.1.4:
   version "1.1.4"
