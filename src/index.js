@@ -1,9 +1,13 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 
-export const checkExhaustiveness = (action: { type: empty }) => {
+export function checkExhaustiveness(action: { type: empty }): void {
   throw new Error(`Unhandled action of type ${action.type}`);
+}
+
+type ActionShape = {
+  type: $Subtype<string>,
 };
 
 type Props<State, Action> = {|
@@ -12,15 +16,16 @@ type Props<State, Action> = {|
   render: ({|
     state: State,
     send: Action => void,
-  |}) => React$Node,
+  |}) => React.Node,
 |};
 
-export class Component<
-  State,
-  Action: { type: $Subtype<string> },
-> extends React.Component<Props<State, Action>, {| reducerState: State |}> {
+export class Component<State, Action: ActionShape> extends React.Component<
+  Props<State, Action>,
+  {| reducerState: State |},
+> {
   constructor(props: Props<State, Action>) {
     super(props);
+
     this.state = {
       reducerState: props.initialState,
     };

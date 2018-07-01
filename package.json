@@ -16,8 +16,10 @@
   "main": "dist/index.js",
   "jsnext:main": "dist/index.es.js",
   "module": "dist/index.es.js",
+  "typings": "./index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "scripts": {
     "start": "rollup -c -w",
