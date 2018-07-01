@@ -1,7 +1,7 @@
 // @flow
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import { render } from 'react-dom';
 import Counter from './components/Counter';
 import ObjectStateCounter from './components/ObjectStateCounter';
 import StatelessCounter from './components/StatelessCounter';
@@ -9,7 +9,7 @@ import StatelessCounter from './components/StatelessCounter';
 const root = document.getElementById('root');
 
 if (root) {
-  ReactDOM.render(
+  render(
     <React.Fragment>
       <h1>Counter</h1>
       <Counter />

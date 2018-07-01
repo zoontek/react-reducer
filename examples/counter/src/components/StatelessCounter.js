@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import * as Reducer from 'react-reducer';
 
 type State = number;

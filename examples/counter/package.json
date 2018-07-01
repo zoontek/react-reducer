@@ -1,5 +1,5 @@
 {
-  "name": "examples",
+  "name": "counter",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-reducer": "^1.0.0-alpha.7",
+    "react-reducer": "^1.0.0-alpha.8",
     "react-scripts": "1.1.4"
   }
 }
