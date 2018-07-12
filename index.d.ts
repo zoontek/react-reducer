@@ -1,21 +1,24 @@
-import * as React from 'react';
+import { Component, ReactNode } from 'react';
 
-export function checkExhaustiveness(action: { type: never }): void;
+export type Reducer<State, Action> = (
+  state: State,
+  action: Action,
+) => State | void;
 
-interface ActionShape {
-  type: string;
-  [key: string]: any;
-}
+export function assertAction(action: { type: never }): void;
 
 interface Props<State, Action> {
   initialState: State;
-  reducer: (state: State, action: Action) => State;
+  reducer: Reducer<State, Action>;
   render: (
     { state, send }: { state: State; send: (action: Action) => void },
-  ) => React.ReactNode;
+  ) => ReactNode;
 }
 
-export class Component<
+export class ReducerComponent<
   State,
-  Action extends ActionShape
-> extends React.Component<Props<State, Action>, { reducerState: State }> {}
+  Action extends {
+    type: string;
+    [key: string]: any;
+  }
+> extends Component<Props<State, Action>, { reducerState: State }> {}

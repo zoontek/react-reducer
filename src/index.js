@@ -1,28 +1,30 @@
 // @flow
 
-import * as React from 'react';
+import { Component } from 'react';
+import type { Node } from 'react';
 
-export function checkExhaustiveness(action: { type: empty }): void {
-  throw new Error(`Unhandled action of type ${action.type}`);
+export type Reducer<State, Action> = (
+  state: State,
+  action: Action,
+) => State | void;
+
+export function assertAction(action: { type: empty }): void {
+  throw new Error(`Unexpected action of type ${action.type}`);
 }
-
-type ActionShape = {
-  type: $Subtype<string>,
-};
 
 type Props<State, Action> = {|
   initialState: State,
-  reducer: (State, Action) => State,
+  reducer: Reducer<State, Action>,
   render: ({|
     state: State,
-    send: Action => void,
-  |}) => React.Node,
+    send: (action: Action) => void,
+  |}) => Node,
 |};
 
-export class Component<State, Action: ActionShape> extends React.Component<
-  Props<State, Action>,
-  {| reducerState: State |},
-> {
+export class ReducerComponent<
+  State,
+  Action: { type: $Subtype<string> },
+> extends Component<Props<State, Action>, {| reducerState: State |}> {
   constructor(props: Props<State, Action>) {
     super(props);
 
@@ -34,10 +36,12 @@ export class Component<State, Action: ActionShape> extends React.Component<
   render() {
     return this.props.render({
       state: this.state.reducerState,
-      send: action =>
-        this.setState(state => ({
-          reducerState: this.props.reducer(state.reducerState, action),
-        })),
+      send: action => {
+        this.setState(state => {
+          const reducerState = this.props.reducer(state.reducerState, action);
+          return typeof reducerState === 'undefined' ? state : { reducerState };
+        });
+      },
     });
   }
 }
