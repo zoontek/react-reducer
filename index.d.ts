@@ -1,24 +1,59 @@
 import { Component, ReactNode } from 'react';
 
-export type Reducer<State, Action> = (
-  state: State,
-  action: Action,
-) => State | void;
+type NoUpdateAction = {
+  type: 'NO_UPDATE';
+};
 
-export function assertAction(action: { type: never }): void;
+type UpdateAction<S> = {
+  type: 'UPDATE';
+  state: S;
+};
 
-interface Props<State, Action> {
-  initialState: State;
-  reducer: Reducer<State, Action>;
+type SideEffectsAction<E> = {
+  type: 'SIDE_EFFECTS';
+  sideEffects: E;
+};
+
+type UpdateWithSideEffectsAction<S, E> = {
+  type: 'UPDATE_WITH_SIDE_EFFECTS';
+  state: S;
+  sideEffects: E;
+};
+
+export const noUpdate: (action: { type: never }) => void;
+
+export const update: <S>(state: S) => UpdateAction<S>;
+
+export const sideEffects: <E>(sideEffects: E) => SideEffectsAction<E>;
+
+export const updateWithSideEffects: <S, E>(
+  state: S,
+  sideEffects: E,
+) => UpdateWithSideEffectsAction<S, E>;
+
+interface Props<S, A> {
+  initialState: S;
+  reducer: (
+    state: S,
+    action: A,
+  ) =>
+    | NoUpdateAction
+    | UpdateAction<S>
+    | SideEffectsAction<(state: S) => any>
+    | UpdateWithSideEffectsAction<S, (state: S) => any>;
   render: (
-    { state, send }: { state: State; send: (action: Action) => void },
+    { state, send }: { state: S; send: (action: A) => void },
   ) => ReactNode;
 }
 
-export class ReducerComponent<
-  State,
-  Action extends {
+interface State<S> {
+  internalState: S;
+}
+
+export default class Component<
+  S,
+  A extends {
     type: string;
     [key: string]: any;
   }
-> extends Component<Props<State, Action>, { reducerState: State }> {}
+> extends Component<Props<S, A>, State<S>> {}

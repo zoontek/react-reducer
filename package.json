@@ -1,26 +1,18 @@
 {
   "name": "react-reducer",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-beta.1",
   "repository": "https://github.com/zoontek/react-reducer.git",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
   "license": "MIT",
   "engines": {
     "node": ">8.0.0"
   },
-  "keywords": [
-    "react",
-    "reducer",
-    "redux",
-    "state"
-  ],
+  "keywords": ["react", "reducer", "redux", "state"],
   "main": "dist/index.js",
   "jsnext:main": "dist/index.es.js",
   "module": "dist/index.es.js",
   "typings": "./index.d.ts",
-  "files": [
-    "dist",
-    "index.d.ts"
-  ],
+  "files": ["dist", "index.d.ts"],
   "scripts": {
     "start": "rollup -c -w",
     "build:flow": "flow-copy-source -v -i examples src dist",
@@ -33,10 +25,7 @@
   },
   "lint-staged": {
     "**/*.js": "eslint --max-warnings 0",
-    "**/*.{js,json,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "**/*.{js,json,md}": ["prettier --write", "git add"]
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"
@@ -53,11 +42,11 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^5",
     "eslint-plugin-react": "^7.7.0",
-    "flow-bin": "^0.75.0",
-    "flow-copy-source": "^2.0.0",
+    "flow-bin": "^0.77.0",
+    "flow-copy-source": "^2.0.1",
     "lint-staged": "^7.2.0",
     "rollup": "^0.62.0",
-    "rollup-plugin-babel": "^3.0.5",
+    "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0"
