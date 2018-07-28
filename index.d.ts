@@ -1,35 +1,40 @@
-import { Component, ReactNode } from 'react';
+import { Component as ReactComponent, ReactNode } from 'react';
 
-type NoUpdateAction = {
+interface NoUpdateAction {
   type: 'NO_UPDATE';
-};
+}
 
-type UpdateAction<S> = {
+interface UpdateAction<S> {
   type: 'UPDATE';
   state: S;
-};
+}
 
-type SideEffectsAction<E> = {
+interface SideEffectsAction<E> {
   type: 'SIDE_EFFECTS';
   sideEffects: E;
-};
+}
 
-type UpdateWithSideEffectsAction<S, E> = {
+interface UpdateWithSideEffectsAction<S, E> {
   type: 'UPDATE_WITH_SIDE_EFFECTS';
   state: S;
   sideEffects: E;
-};
+}
 
-export const noUpdate: (action: { type: never }) => void;
+export function noUpdate(action: { type: never }): NoUpdateAction;
 
-export const update: <S>(state: S) => UpdateAction<S>;
+export function update<S>(state: S): UpdateAction<S>;
 
-export const sideEffects: <E>(sideEffects: E) => SideEffectsAction<E>;
+export function sideEffects<E>(sideEffects: E): SideEffectsAction<E>;
 
-export const updateWithSideEffects: <S, E>(
+export function updateWithSideEffects<S, E>(
   state: S,
   sideEffects: E,
-) => UpdateWithSideEffectsAction<S, E>;
+): UpdateWithSideEffectsAction<S, E>;
+
+interface ActionShape {
+  type: string;
+  [key: string]: any;
+}
 
 interface Props<S, A> {
   initialState: S;
@@ -50,10 +55,7 @@ interface State<S> {
   internalState: S;
 }
 
-export default class Component<
-  S,
-  A extends {
-    type: string;
-    [key: string]: any;
-  }
-> extends Component<Props<S, A>, State<S>> {}
+export class Component<S, A extends ActionShape> extends ReactComponent<
+  Props<S, A>,
+  State<S>
+> {}
